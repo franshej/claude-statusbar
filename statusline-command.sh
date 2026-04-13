@@ -21,6 +21,7 @@ with open('/tmp/statusline-input.json') as f:
 
 cwd = data.get('workspace', {}).get('current_dir') or data.get('cwd', '.')
 
+model = data.get('model', {}).get('display_name', '')
 ctx_pct = data.get('context_window', {}).get('used_percentage', 0)
 
 five_hour = data.get('rate_limits', {}).get('five_hour', {})
@@ -44,6 +45,8 @@ SEP     = f" {GRAY}|{RESET} "
 parts = [f"{CYAN}{cwd}{RESET}"]
 if branch:
     parts.append(f"{YELLOW}{branch}{RESET}")
+if model:
+    parts.append(f"{GRAY}{model}{RESET}")
 parts.append(f"{GREEN}ctx {ctx_pct}%{RESET}")
 parts.append(f"{MAGENTA}{int(rl_pct)}% (resets in {reset_str}){RESET}")
 
