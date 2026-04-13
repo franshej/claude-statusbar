@@ -51,7 +51,7 @@ if branch:
 if model:
     parts.append(f"{GRAY}{model}{RESET}")
 parts.append(f"{GREEN}ctx {ctx_pct}%{RESET}")
-parts.append(f"{MAGENTA}{int(rl_pct)}% (resets in {reset_str}){RESET}")
+parts.append(f"{MAGENTA}{int(rl_pct)}% ({reset_str}){RESET}")
 
 
 print(SEP.join(parts), end='')
