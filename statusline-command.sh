@@ -12,7 +12,7 @@ print(d.get('workspace', {}).get('current_dir') or d.get('cwd', '.'))
 branch=$(git -C "$cwd" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
 
 python3 - "$branch" <<'PYEOF'
-import sys, json, time
+import sys, json, time, os
 
 branch = sys.argv[1] if len(sys.argv) > 1 else ''
 
@@ -20,6 +20,9 @@ with open('/tmp/statusline-input.json') as f:
     data = json.load(f)
 
 cwd = data.get('workspace', {}).get('current_dir') or data.get('cwd', '.')
+home = os.path.expanduser('~')
+if cwd.startswith(home):
+    cwd = '~' + cwd[len(home):]
 
 model = data.get('model', {}).get('display_name', '')
 ctx_pct = data.get('context_window', {}).get('used_percentage', 0)
